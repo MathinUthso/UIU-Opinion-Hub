@@ -55,7 +55,7 @@ function timeAgo($timestamp) {
     </ul>
     <ul>
       <li><a href = "role.php">🔙 Role Selection</a></li>
-      <li><a href = "vote.php"></a></li>
+      <li><a href = "vote.php">See votes</a></li>
     </ul>
   </nav>
 </header>
@@ -64,7 +64,7 @@ function timeAgo($timestamp) {
   <section id = "opinions" class = "container">
     <h1>Latest Opinions</h1>
 
-    <?php foreach (array_merge($studentOpinions, $facultyOpinions) as $opinion): ?>
+    <?php foreach ($allOpinions as $opinion): ?>
       <div  class = "post">
       <div  class = "post-header">
       <div  class = "user-info">
@@ -75,7 +75,7 @@ function timeAgo($timestamp) {
               }
               ?>
             </span>
-            <span class = "timestamp"><?php echo htmlspecialchars(timeAgo(strtotime($opinion['submitted_at'])) ?? ''); ?></span>
+            <span class = "timestamp"><?php echo timeAgo(strtotime($opinion['submitted_at'])?? ''); ?></span>
           </div>
         </div>
         <div class = "post-content">

@@ -67,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </form>
 </div>
 </main>
-<footer>
+<footer style="position: fixed;">
   <p>&copy; 2025 UIU Opinion Hub. All rights reserved.</p>
   <a href = "role.php">Refresh</a>
 </footer>
