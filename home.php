@@ -13,13 +13,13 @@ try {
 }
 
 // Fetch opinions from student table
-$stmt = $pdo->query("SELECT id,student_id, opinion,vote, role,total_likes,submitted_at FROM student ORDER BY submitted_at DESC");
-$studentOpinions = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$stmt = $pdo->query("SELECT id,vote, opinion, role,total_likes,submitted_at FROM student
+                     UNION ALL
+                     SELECT id, vote, opinion, role, total_likes, submitted_at FROM faculty
+                     ORDER BY submitted_at DESC");
+$allOpinions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Fetch opinions from faculty table
-$stmt            = $pdo->query("SELECT id, name,vote, opinion,role, total_likes, submitted_at FROM faculty ORDER BY submitted_at DESC");
-$facultyOpinions = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+date_default_timezone_set('Asia/Dhaka');
 function timeAgo($timestamp) {
   $diff = abs(time() - $timestamp);
 
