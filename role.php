@@ -38,8 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <li><a href = "home.php">UIU OPINION HUB</a></li>
     </ul>
     <ul>
-      <li><a href = "role.php">🔙 Role Selection</a></li>
-      <li><a href = "#opinions">Opinions</a></li>
+      <li><a href = "vote.php">See votes</a></li>
+      <li><a href = "home.php">Opinions</a></li>
     </ul>
   </nav>
 </header>
@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </main>
 <footer style="position: fixed;">
   <p>&copy; 2025 UIU Opinion Hub. All rights reserved.</p>
-  <a href = "role.php">Refresh</a>
+  <a href = "#discord-link">Refresh</a>
 </footer>
 </body>
 </html>
