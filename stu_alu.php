@@ -9,10 +9,7 @@ if(!isset($_SESSION['role'])){
 }
 $role = $_SESSION['role'];
  //==============DB Connection=============================     
-  $host     = "localhost";
-  $db       = "mysocialapp";
-  $username = "root";
-  $password = "";
+ require_once 'config/database.php';
   
   $conn = new mysqli($host,$username,$password,$db);
   

@@ -1,9 +1,5 @@
 <?php
-$host     = 'localhost';
-$dbname   = 'mysocialapp';
-$username = 'root';
-$password = '';
-
+require_once 'config/database.php';
 $conn = new mysqli($host, $username, $password, $dbname);
 
 // Step 1: Get total count of votes
@@ -28,8 +24,20 @@ $dataPoints = array();
 
 while($row = $result->fetch_assoc()){
     $percentage = (floatval($row["count"]) / $totalVotes) * 100;
+    $hudai      = $row["vote"];
+    switch($hudai){
+        case "both": 
+            $label="Agrees with both";
+            break;
+        case "huda": 
+            $label = "Huda sir only";
+            break;
+        case "kashem": 
+            $label = "Kashem sir only";
+            break;        
+    }
     $dataPoints[] = array(
-        "label" => $row["vote"],
+        "label" => $label,
         "y"     => round($percentage, 2)
     );
 }
@@ -78,8 +86,8 @@ $conn->close();
       <li><a href="home.php">UIU OPINION HUB</a></li>
     </ul>
     <ul>
-      <li><a href="role.php">🔙 Role Selection</a></li>
-      <li><a href="vote.php">See votes</a></li>
+      <li><a href="role.php">⬅️ Role Selection</a></li>
+      <li><a href="home.php">Opinions</a></li>
     </ul>
   </nav>
 </header>

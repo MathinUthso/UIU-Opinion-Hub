@@ -1,9 +1,12 @@
+
+
+
 <?php
-session_start();
+  
 
 ?>
 
-<!DOCTYPE html
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset = "UTF-8">
@@ -15,23 +18,32 @@ session_start();
 <header>
   <nav>
     <ul>
-      <li><a href = "role.php">🔙 Role Selection</a></li>
-      <li><a href = "#opinions">Opinions</a></li>
+    <li><a href = "home.php">UIU OPINION HUB</a></li>
+    </ul>
+    <ul>
+    <li><a href = "role.php">⬅️ Role Selection</a></li>
+    <li><a href = "vote.php">🗳️See votes</a></li>
     </ul>
   </nav>
 </header>
 
 <main>
-<div class="message-box">
+<div class="container">
     <h1>🎉 Submission Successful!</h1>
     <p>Thank you for sharing your opinion with UIU Opinion Hub.</p>
-    <a href="role.php" class="button">Back to Role Selection</a>
 </div>
-
 </main>
-<footer>
+
+<footer style = "position: fixed;">
   <p>&copy; 2025 UIU Opinion Hub. All rights reserved.</p>
-  <a href = "role.php">Back to Role Selection</a>
+  <a href = "#discord-link">Refresh</a>
 </footer>
+<script>
+            setTimeout(function() {
+                window.location.href = "home.php";
+            }, 5000);
+            </script>
+            <?php exit ?>
+        
 </body>
 </html>

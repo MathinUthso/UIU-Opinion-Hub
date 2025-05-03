@@ -1,9 +1,6 @@
 <?php
 // db.php
-$host = 'localhost';
-$dbname = 'mysocialapp';
-$username = 'root';
-$password = '';
+require_once 'config/database.php';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
@@ -54,8 +51,8 @@ function timeAgo($timestamp) {
     <li><a href  = "home.php">UIU OPINION HUB</a></li>
     </ul>
     <ul>
-      <li><a href = "role.php">🔙 Role Selection</a></li>
-      <li><a href = "vote.php">See votes</a></li>
+    <li><a href="role.php">⬅️ Role Selection</a></li>
+      <li><a href = "vote.php">🗳️See votes</a></li>
     </ul>
   </nav>
 </header>
@@ -96,7 +93,7 @@ function timeAgo($timestamp) {
 
 <footer>
   <p>&copy; 2025 UIU Opinion Hub. All rights reserved.</p>
-  <a href = "role.php">Back to Role Selection</a>
+  <a href = "sendTicket.php">Got any suggestions or query?</a>
 </footer>
 
 <script>
