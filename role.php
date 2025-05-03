@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['role'])) {
         $role = $_POST['role'];
@@ -38,8 +39,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <li><a href = "home.php">UIU OPINION HUB</a></li>
     </ul>
     <ul>
-      <li><a href = "vote.php">See votes</a></li>
-      <li><a href = "home.php">Opinions</a></li>
+      <li><a href = "vote.php">🗳️ See votes</a></li>
+      <li><a href = "home.php">🗣 Opinions</a></li>
     </ul>
   </nav>
 </header>
@@ -67,9 +68,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </form>
 </div>
 </main>
-<footer style="position: fixed;">
+<footer style="position:fixed">
   <p>&copy; 2025 UIU Opinion Hub. All rights reserved.</p>
-  <a href = "#discord-link">Refresh</a>
+  <a href = "sendTicket.php">Got any suggestions or query?</a>
 </footer>
 </body>
 </html>

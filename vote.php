@@ -1,12 +1,10 @@
 <?php
 require_once 'config/database.php';
-$conn = new mysqli($host, $username, $password, $dbname);
+$conn = new mysqli($host, $username, $password, $db);
 
 // Step 1: Get total count of votes
 $sqlTotal = "SELECT COUNT(*) as total FROM (
-    SELECT vote FROM student
-    UNION ALL
-    SELECT vote FROM faculty
+    SELECT vote FROM posts
 ) as all_votes";
 
 $resultTotal = $conn->query($sqlTotal);
@@ -14,9 +12,7 @@ $totalVotes  = $resultTotal->fetch_assoc()["total"];
 
 // Step 2: Get counts per vote
 $sql = "SELECT vote, COUNT(*) AS count FROM (
-    SELECT vote FROM student
-    UNION ALL
-    SELECT vote FROM faculty
+    SELECT vote FROM posts
 ) as all_votes GROUP BY vote";
 
 $result     = $conn->query($sql);
@@ -87,7 +83,7 @@ $conn->close();
     </ul>
     <ul>
       <li><a href="role.php">⬅️ Role Selection</a></li>
-      <li><a href="home.php">Opinions</a></li>
+      <li><a href="home.php">🗣 Opinions</a></li>
     </ul>
   </nav>
 </header>
@@ -101,7 +97,7 @@ $conn->close();
 
 <footer>
   <p>&copy; 2025 UIU Opinion Hub. All rights reserved.</p>
-  <a href="role.php">Back to Role Selection</a>
+  <a href = "sendTicket.php">Got any suggestions or query?</a>
 </footer>
 
 </body>

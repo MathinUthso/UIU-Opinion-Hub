@@ -31,15 +31,14 @@ $currentTime = $now->format("Y-m-d H:i:s");
     $s_opinion = $_POST["opinion"] ?? null;
 
     if ($s_id && $s_vote && $s_reason && $s_opinion && $role) {
-        $stmt = $conn->prepare("INSERT INTO student (student_id, role, vote, reason, opinion,submitted_at) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("isssss", $s_id, $role, $s_vote, $s_reason, $s_opinion, $currentTime);
+      $_SESSION['user_id'] = $user['s_id'];
+        $stmt = $conn->prepare("INSERT INTO student (student_id, role, reason) VALUES (?, ?, ?)");
+        $stmt->bind_param("iss", $s_id, $role, $s_reason);
         
         try {
             if ($stmt->execute()) {
                 // Success message for users 
                 $successMessage = "Your response has been recorded. Thank you!";
-                header("Location: success.php");
-                exit;
             } else {
                 // Log the error instead of showing it
                 error_log("Database insert failed: " . $stmt->error);
@@ -52,6 +51,28 @@ $currentTime = $now->format("Y-m-d H:i:s");
         
 
         $stmt->close();
+
+        $post = $conn->prepare("INSERT INTO posts ( opinion,student_id,submitted_at,vote) VALUES (?, ?, ?, ?)");
+        $post->bind_param("siss", $s_opinion,$s_id, $currentTime,$s_vote);
+        
+        try {
+            if ($post->execute()) {
+                // Success message for users 
+                $successMessage = "Your response has been recorded. Thank you!";
+                header("Location: success.php");
+                exit;
+            } else {
+                // Log the error instead of showing it
+                error_log("Database insert failed: " . $post->error);
+                $errorMessage = "Something went wrong while saving your response. Please try again later.";
+            }
+        } catch (Exception $e) {
+            error_log("Exception during DB insert: " . $e->getMessage());
+            $errorMessage = "A system error occurred. Please try again later.";
+        }
+        
+
+        $post->close();
     } else {
         $error = "Please fill in all fields.";
     }

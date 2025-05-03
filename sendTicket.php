@@ -46,8 +46,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <li><a href = "home.php">UIU OPINION HUB</a></li>
     </ul>
     <ul>
-      <li><a href = "vote.php">See votes</a></li>
-      <li><a href = "home.php">Opinions</a></li>
+      <li><a href = "vote.php">🗳️ See votes</a></li>
+      <li><a href = "home.php">🗣 Opinions</a></li>
     </ul>
   </nav>
 </header>

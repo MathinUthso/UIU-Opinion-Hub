@@ -35,11 +35,14 @@ $currentTime = $now->format("Y-m-d H:i:s");
     $s_opinion = $_POST["opinion"] ?? null;
     
     if ($s_name && $s_vote && $s_reason && $s_opinion && $role&&$s_department) {
+      
         $stmt = $conn->prepare("INSERT INTO faculty (name,department, vote, reason, opinion,submitted_at,role) VALUES (?, ?, ?, ?, ?, ?,?)");
         $stmt->bind_param("sssssss", $s_name,$s_department, $s_vote, $s_reason, $s_opinion, $currentTime, $role);
+         $f_id= $conn->query("SELECT id FROM faculty where name=$s_name");
         
         try {
             if ($stmt->execute()) {
+              $_SESSION['user_id'] = $f_id;
                 // Success message for users 
                 $successMessage = "Your response has been recorded. Thank you!";
                 header("Location: success.php");

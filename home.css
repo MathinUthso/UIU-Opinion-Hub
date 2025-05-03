@@ -111,10 +111,17 @@
   
   .vote-tag {
     background-color: #ffe6cc;
-    color: #b34b00;
-    padding: 6px 12px;
-    border-radius: 6px;
-    font-weight: 500;
+    color           : #b34b00;
+    padding         : 6px 12px;
+    border-radius   : 6px;
+    font-weight     : 500;
+  }
+  .wasPresent-tag {
+    background-color: #ffe6cc;
+    color           : #b34b00;
+    padding         : 6px 12px;
+    border-radius   : 6px;
+    font-weight     : 500;
   }
   
   /* Like button */

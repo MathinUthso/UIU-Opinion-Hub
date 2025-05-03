@@ -22,7 +22,7 @@
     </ul>
     <ul>
     <li><a href = "role.php">⬅️ Role Selection</a></li>
-    <li><a href = "vote.php">🗳️See votes</a></li>
+    <li><a href = "vote.php">🗳️ See votes</a></li>
     </ul>
   </nav>
 </header>

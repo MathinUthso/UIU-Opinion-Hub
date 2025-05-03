@@ -3,7 +3,7 @@
   //config/database.php>
 
 $host     = 'localhost';
-$dbname   = 'mysocialapp';
+$db       = 'mysocialapp';
 $username = 'root';
 $password = '';
 
