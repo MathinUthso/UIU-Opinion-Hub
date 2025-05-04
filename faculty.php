@@ -9,11 +9,7 @@ if(!isset($_SESSION['role'])){
 }
 $role = $_SESSION['role'];
  //==============DB Connection=============================     
-  $host     = "localhost";
-  $db       = "mysocialapp";
-  $username = "root";
-  $password = "";
-  
+  require_once "config/database.php";
   $conn = new mysqli($host,$username,$password,$db);
   
   if($conn->connect_error){
@@ -28,25 +24,22 @@ $currentTime = $now->format("Y-m-d H:i:s");
 
   if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["button1"])) {
 
-    $s_name      = $_POST["name"] ?? null;
+    $s_name       = $_POST["name"] ?? null;
     $s_department = $_POST["department"] ?? null;
-    $s_vote  = $_POST["vote"] ?? null;
-    $s_reason = $_POST["reason"] ?? null;
-    $s_opinion = $_POST["opinion"] ?? null;
-    
+    $s_vote       = $_POST["vote"] ?? null;
+    $s_reason     = $_POST["reason"] ?? null;
+    $s_opinion    = $_POST["opinion"] ?? null;
+    $faculty_id   = null;
+
+
+
     if ($s_name && $s_vote && $s_reason && $s_opinion && $role&&$s_department) {
       
-        $stmt = $conn->prepare("INSERT INTO faculty (name,department, vote, reason, opinion,submitted_at,role) VALUES (?, ?, ?, ?, ?, ?,?)");
-        $stmt->bind_param("sssssss", $s_name,$s_department, $s_vote, $s_reason, $s_opinion, $currentTime, $role);
-         $f_id= $conn->query("SELECT id FROM faculty where name=$s_name");
+        $stmt = $conn->prepare("INSERT INTO faculty (name,department,vote, reason, role) VALUES (?, ?, ?,?,?)");
+        $stmt->bind_param("sssss", $s_name,$s_department,$s_vote, $s_reason, $role);
         
         try {
             if ($stmt->execute()) {
-              $_SESSION['user_id'] = $f_id;
-                // Success message for users 
-                $successMessage = "Your response has been recorded. Thank you!";
-                header("Location: success.php");
-                exit;
             } else {
                 // Log the error instead of showing it
                 error_log("Database insert failed: " . $stmt->error);
@@ -62,6 +55,47 @@ $currentTime = $now->format("Y-m-d H:i:s");
     } else {
         $error = "Please fill in all fields.";
     }
+
+$query  = "SELECT id FROM faculty WHERE name='$s_name' AND department='$s_department'";
+$result = $conn->query($query);
+
+if ($result && $row = $result->fetch_assoc()) {
+    $faculty_id = $row['id'];
+
+}
+$_SESSION['user_id'] = $faculty_id;
+
+
+    if ($s_name && $s_vote && $s_reason && $s_opinion && $role&&$s_department) {
+      
+      $post = $conn->prepare("INSERT INTO posts (opinion,faculty_id,submitted_at,vote) VALUES (?, ?, ?, ?)");
+      $post->bind_param("siss", $s_opinion,$faculty_id, $currentTime,$s_vote);
+      
+      try {
+          if ($post->execute()) {
+                  // Success message for users 
+                  $_SESSION['Message'] = "Your response has been recorded. Thank you!";
+                  header("Location: success.php");
+                  exit;
+                  
+          } else {
+                  // Log the error instead of showing it
+              error_log("Database insert failed: " . $post->error);
+            $_SESSION['Message'] = "Something went wrong while saving your response. Please try again later.";
+            header("Location: success.php");
+            exit;
+
+          }
+      } catch (Exception $e) {
+          error_log("Exception during DB insert: " . $e->getMessage());
+          $_SESSION['Message'] = "Something went wrong while saving your response. Please try again later.";
+            header("Location: success.php");
+            exit;
+      }
+      $post->close();
+  } else {
+      $error = "Please fill in all fields.";
+  }
 }
 
 

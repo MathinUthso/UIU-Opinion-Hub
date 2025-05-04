@@ -19,7 +19,7 @@ $query = ("SELECT
         WHEN p.student_id IS NOT NULL THEN 
              s.role
         WHEN p.faculty_id IS NOT NULL THEN 
-            'Faculty'  
+            'faculty'  
         ELSE 
             'Unknown'  
     END AS posted_by

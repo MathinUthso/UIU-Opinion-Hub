@@ -2,8 +2,12 @@
 
 
 <?php
+  session_start(); // Required to access $_SESSION
   
-
+  $Message = $_SESSION['Message'] ?? '';
+  unset($_SESSION['Message']); // Clear after showing
+  
+  
 ?>
 
 <!DOCTYPE html>
@@ -29,8 +33,15 @@
 
 <main>
 <div class="container">
-    <h1>🎉 Submission Successful!</h1>
-    <p>Thank you for sharing your opinion with UIU Opinion Hub.</p>
+<?php if (!empty($Message) && $Message=="Your response has been recorded. Thank you!"): ?>
+  <h1>Submission Succesful</h1>
+  <p style = "color: green; text-align:center;"><?php echo $Message; ?></p>
+<?php endif; ?>
+<?php if (!empty($Message)&&$Message=="Something went wrong while saving your response. Please try again later."): ?>
+  <h1>Submission Failed</h1>
+  <p style="color: red;"><?php echo $Message; ?></p>
+<?php endif; ?>
+
 </div>
 </main>
 

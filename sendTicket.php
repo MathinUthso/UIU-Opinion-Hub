@@ -3,12 +3,13 @@ session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $messageContent = trim($_POST['message'] ?? '');
+    $email= trim($_POST['Email'] ?? '');
 
     if ($messageContent !== '') {
         $webhookUrl = "https://discord.com/api/webhooks/1368281630069755994/XQC8XCkzedKv79LPwK_dGmmxGOEWab5rl-0iaUkZVd_M0pGOm-vFmnpueL0RhOsF9oId";
 
         $payload = [
-            "content" => "📩 New message from user: \n" . $messageContent
+            "content" => "📩 New message from '$email': \n" . $messageContent
         ];
 
         $ch = curl_init($webhookUrl);
@@ -53,8 +54,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </header>
 <main>
 <div class = "container">
-<h2>Send a Suggestion or Question to the Developer</h2>
-<form action="sendTicket.php" method="POST">
+<h2>Add your suggestions or Questions</h2>
+<form action = "sendTicket.php" method = "POST">
+  <input type="text" name="Email" placeholder="Your E-mail">
   <textarea name="message" rows="4" cols="50" placeholder="Type your feedback here..." required></textarea><br>
   <button type="submit">Send to Developer 💬</button>
 </form>
