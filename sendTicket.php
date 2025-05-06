@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email= trim($_POST['Email'] ?? '');
 
     if ($messageContent !== '') {
-        $webhookUrl = "https://discord.com/api/webhooks/1368281630069755994/XQC8XCkzedKv79LPwK_dGmmxGOEWab5rl-0iaUkZVd_M0pGOm-vFmnpueL0RhOsF9oId";
+        $webhookUrl = "Your webhook URL here";
 
         $payload = [
             "content" => "📩 New message from '$email': \n" . $messageContent
